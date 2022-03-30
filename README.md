@@ -1,7 +1,7 @@
 Coverage: 34%
-# Project Title
+# IMS Project - Sayed Sakkaf
 
-One Paragraph of project description goes here
+In this project, I will create an inventory management system application with customer, item and order features, and the ability to create, read, update and delete using the CRUD functionality.
 
 ## Getting Started
 
