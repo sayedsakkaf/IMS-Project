@@ -11,6 +11,8 @@ public class Order {
 		this.setId(id);
 		this.setCustomerId(customerId);
 	}
+	
+	
 
 	public Long getId() {
 		return id;

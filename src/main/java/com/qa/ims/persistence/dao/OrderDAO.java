@@ -91,23 +91,12 @@ public class OrderDAO implements Dao <Order> {
 		return null;
 	}
 
-//	@Override
-//	public Order update(Order order) {
-//		try (Connection connection = DBUtils.getInstance().getConnection();
-//				PreparedStatement statement = connection
-//						.prepareStatement("UPDATE customers SET first_name = ?, surname = ? WHERE id = ?");) {
-//			statement.setString(1, customer.getFirstName());
-//			statement.setString(2, customer.getSurname());
-//			statement.setLong(3, customer.getId());
-//			statement.executeUpdate();
-//			return read(customer.getId());
-//		} catch (Exception e) {
-//			LOGGER.debug(e);
-//			LOGGER.error(e.getMessage());
-//		}
-//		return null;
-//	}
-//	
+	@Override
+	public Order update(Order order) {
+		
+		return null;
+	}
+	
 
 	@Override
 	public int delete(long id) {
