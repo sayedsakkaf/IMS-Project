@@ -75,11 +75,16 @@ public class ItemDAO implements Dao<Item> {
 
 	@Override
 	public Item create(Item item) {
+		// Create connection object 
+		// Create statement from connection object containing SQL
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection
 						.prepareStatement ("INSERT INTO item (product_name, price) VALUES (?, ?)");) {
+		// Set the data on the statement
 			statement.setString(1, item.getProductName());
 			statement.setDouble(2, item.getPrice());
+		// execute the query inside the statement object against the database
+			statement.executeUpdate();
 			return readLatest();
 		} catch (Exception e) {
 			LOGGER.debug(e);
@@ -97,6 +102,7 @@ public class ItemDAO implements Dao<Item> {
 		statement.setString(1, item.getProductName());
 		statement.setDouble(2, item.getPrice());
 		statement.setLong(3, item.getId());
+		statement.executeUpdate();
 		return read(item.getId());
 	} catch (Exception e) {
 		LOGGER.debug(e);
