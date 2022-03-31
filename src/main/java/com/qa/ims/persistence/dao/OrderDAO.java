@@ -11,28 +11,29 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.qa.ims.persistence.domain.Customer;
 import com.qa.ims.persistence.domain.Order;
-import com.qa.ims.persistence.domain.Orders;
 import com.qa.ims.utils.DBUtils;
 
-public class OrderDAO implements Dao <Order> {
+public class OrderDAO implements Dao<Order> {
 	
 	public static final Logger LOGGER = LogManager.getLogger();
-	
+
+
 	@Override
 	public Order modelFromResultSet(ResultSet resultSet) throws SQLException {
 		Long id = resultSet.getLong("id");
 		Long customerId = resultSet.getLong("customer_id");
 		return new Order(id, customerId);
 	}
-	
-	
+
 	@Override
 	public List<Order> readAll() {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
-				ResultSet resultSet = statement.executeQuery("SELECT * FROM orders");) {
+				ResultSet resultSet = statement.executeQuery("SELECT orders.id, customers.first_name, customers.surname, orders_items.item_id, item.product_name, item.price"
+						+ "FROM orders JOIN customers ON orders.customer_id = customers.id"
+						+ "JOIN orders_items ON orders.id = orders_items.order_id"
+						+ "JOIN item on item.id = orders_items.item_id WHERE orders.id = 1");) {
 			List<Order> orders = new ArrayList<>();
 			while (resultSet.next()) {
 				orders.add(modelFromResultSet(resultSet));
@@ -43,6 +44,7 @@ public class OrderDAO implements Dao <Order> {
 			LOGGER.error(e.getMessage());
 		}
 		return new ArrayList<>();
+	
 	}
 	
 	public Order readLatest() {
@@ -57,7 +59,6 @@ public class OrderDAO implements Dao <Order> {
 		}
 		return null;
 	}
-	
 
 	@Override
 	public Order read(Long id) {
@@ -74,7 +75,8 @@ public class OrderDAO implements Dao <Order> {
 		}
 		return null;
 	}
-
+	
+	
 	@Override
 	public Order create(Order order) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
@@ -90,14 +92,13 @@ public class OrderDAO implements Dao <Order> {
 		}
 		return null;
 	}
-
 	@Override
-	public Order update(Order order) {
-		
+	public Order update(Order t) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 	
-
+	
 	@Override
 	public int delete(long id) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
@@ -109,9 +110,10 @@ public class OrderDAO implements Dao <Order> {
 			LOGGER.error(e.getMessage());
 		}
 		return 0;
+	
 	}
-
-	
-	
-
 }
+
+
+
+

@@ -6,3 +6,17 @@ CREATE TABLE IF NOT EXISTS `customers` (
     `surname` VARCHAR(40) DEFAULT NULL,
     PRIMARY KEY (`id`)
 );
+
+DROP TABLE IF EXISTS `item`;
+
+CREATE TABLE IF NOT EXISTS `item` (
+	`id` BIGINT AUTO_INCREMENT,
+    `product_name` VARCHAR(64) NOT NULL UNIQUE,
+    `price` DECIMAL(4,2) NOT NULL,
+    PRIMARY KEY (`id`)
+);
+
+
+
+
+
