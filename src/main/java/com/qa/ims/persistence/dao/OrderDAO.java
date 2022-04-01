@@ -22,18 +22,22 @@ public class OrderDAO implements Dao<Order> {
 	@Override
 	public Order modelFromResultSet(ResultSet resultSet) throws SQLException {
 		Long id = resultSet.getLong("id");
-		Long customerId = resultSet.getLong("customer_id");
-		return new Order(id, customerId);
+		String firstName = resultSet.getString("first_name");
+		String surname = resultSet.getString("surname");
+		String productName = resultSet.getString("product_name");
+		return new Order(id, firstName, surname, productName);
 	}
 
 	@Override
 	public List<Order> readAll() {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
-				ResultSet resultSet = statement.executeQuery("SELECT orders.id, customers.first_name, customers.surname, orders_items.item_id, item.product_name, item.price"
-						+ "FROM orders JOIN customers ON orders.customer_id = customers.id"
-						+ "JOIN orders_items ON orders.id = orders_items.order_id"
-						+ "JOIN item on item.id = orders_items.item_id WHERE orders.id = 1");) {
+				ResultSet resultSet = statement.executeQuery(
+						"SELECT orders.id, orders.customer_id, customers.first_name, customers.surname, "
+						+ "orders_items.item_id, item.product_name, item.price "
+						+ "FROM orders JOIN customers ON orders.customer_id = customers.id "
+						+ "JOIN orders_items ON orders.id = orders_items.order_id "
+						+ "JOIN item on item.id = orders_items.item_id  ");) {
 			List<Order> orders = new ArrayList<>();
 			while (resultSet.next()) {
 				orders.add(modelFromResultSet(resultSet));
