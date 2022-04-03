@@ -59,21 +59,21 @@ public class ItemControllerTest {
 		Mockito.verify(dao, Mockito.times(1)).readAll();
 	}
 	
-//	@Test
-//	public void testUpdate() {
-//		Item updated = new Item(1L, "Chair", 150.00d);
-//		
-//		Mockito.when(this.utils.getLong()).thenReturn(1L);
-//		Mockito.when(this.utils.getString()).thenReturn(updated.getProductName());
-//		Mockito.when(this.utils.getDouble()).thenReturn(150.00d);
-//		
-//		assertEquals(updated, this.controller.update());
-//		
-//		Mockito.verify(this.utils, Mockito.times(1)).getLong();
-//		Mockito.verify(this.utils, Mockito.times(1)).getString();
-//		Mockito.verify(this.utils, Mockito.times(1)).getDouble();
-//		Mockito.verify(this.dao, Mockito.times(1)).update(updated);
-//	}
+	@Test
+	public void testUpdate() {
+		Item updated = new Item(1L, "Chair", 150.00d);
+		
+		Mockito.when(this.utils.getLong()).thenReturn(1L);
+		Mockito.when(this.utils.getString()).thenReturn(updated.getProductName());
+		Mockito.when(this.utils.getDouble()).thenReturn(150.00d);
+		
+		assertEquals(updated, this.controller.update());
+		
+		Mockito.verify(this.utils, Mockito.times(1)).getLong();
+		Mockito.verify(this.utils, Mockito.times(1)).getString();
+		Mockito.verify(this.utils, Mockito.times(1)).getDouble();
+		Mockito.verify(this.dao, Mockito.times(1)).update(updated);
+	}
 	
 	@Test
 	public void testDelete() {
