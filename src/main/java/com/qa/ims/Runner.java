@@ -10,7 +10,7 @@ public class Runner {
 	public static void main(String[] args) {
 		IMS ims = new IMS();
 		ims.imsSystem();
-		LOGGER.info("Exiting Inventory System");
+		LOGGER.info("Exiting Inventory Management System");
 	}
 
 }
