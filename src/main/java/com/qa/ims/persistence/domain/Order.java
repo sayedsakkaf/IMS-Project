@@ -10,14 +10,19 @@ public class Order {
 	private String surname;
 	private String productName;
 	
+	public Order(Long customerId) {
+		this.setCustomerId(customerId);
+	}
 	
 	public Order(Long id, Long customerId) {
 		this.setId(id);
 		this.setCustomerId(customerId);
 	}
+
 	
-	public Order(Long id, String firstName, String surname, String productName) {
+	public Order(Long id, Long customerId,String firstName, String surname, String productName) {
 		this.setId(id);
+		this.setId(customerId);
 		this.setFirstName(firstName);
 		this.setSurname(surname);
 		this.setProductName(productName);

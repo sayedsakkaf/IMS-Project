@@ -22,18 +22,20 @@ public class ItemDAOTest {
 		DBUtils.getInstance().init("src/test/resources/sql-schema.sql", "src/test/resources/sql-data.sql");
 	}
 	
-	@Test
-	public void testCreate() {
-		final Item created = new Item(2L, "Television", 349);
-		assertEquals(created, DAO.create(created));
-	}
+	
 	
 	
 	@Test
 	public void testReadAll() {
 		List<Item> expected = new ArrayList<>();
-		expected.add(new Item(3L, "Test", 149.99));
+		expected.add(new Item(1L, "Test", 149.99F));
 		assertEquals(expected, DAO.readAll());
+	}
+	
+	@Test
+	public void testCreate() {
+		final Item created = new Item(2L, "Television", 349.99F);
+		assertEquals(created, DAO.create(created));
 	}
 	
 	

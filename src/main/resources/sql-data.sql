@@ -37,3 +37,7 @@ INSERT INTO `ims`. `orders_items` (`order_id`, `item_id`) VALUES (1, 1);
 
 INSERT INTO `ims`. `orders_items` (`order_id`, `item_id`) VALUES (2, 1);
 
+INSERT INTO `ims`. `orders_items` (`order_id`, `item_id`) VALUES (3, 3);
+
+
+
