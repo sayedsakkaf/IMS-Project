@@ -16,6 +16,25 @@ CREATE TABLE IF NOT EXISTS `item` (
     PRIMARY KEY (`id`)
 );
 
+DROP TABLE IF EXISTS `orders`;
+
+CREATE TABLE `orders` (
+	`id` BIGINT AUTO_INCREMENT,
+    `customer_id` BIGINT NOT NULL,
+	PRIMARY KEY(id),
+    CONSTRAINT `FK_cid_1` FOREIGN KEY(customer_id) REFERENCES customers (id)
+);
+
+
+DROP TABLE IF EXISTS `orders_items`;
+
+CREATE TABLE `orders_items` (
+	`order_id` BIGINT NOT NULL,
+    `item_id` BIGINT NOT NULL,
+	PRIMARY KEY (order_id, item_id),
+    CONSTRAINT `FK_oid_1` FOREIGN KEY (order_id) REFERENCES orders(id),
+    CONSTRAINT `FK_iid_1` FOREIGN KEY (item_id) REFERENCES item(id)
+);
 
 
 

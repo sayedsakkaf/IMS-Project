@@ -6,6 +6,7 @@ public class Order {
 	
 	private Long id;
 	private Long customerId;
+	private Long itemId;
 	private String firstName;
 	private String surname;
 	private String productName;
@@ -19,15 +20,14 @@ public class Order {
 		this.setCustomerId(customerId);
 	}
 
-	
-	public Order(Long id, Long customerId,String firstName, String surname, String productName) {
+	public Order(Long id,String firstName, String surname, String productName) {
 		this.setId(id);
-		this.setId(customerId);
 		this.setFirstName(firstName);
 		this.setSurname(surname);
 		this.setProductName(productName);
 		
 
+		
 	}
 	
 	
@@ -76,6 +76,16 @@ public class Order {
 
 	
 
+	public Long getItemId() {
+		return itemId;
+	}
+
+	public void setItemId(Long itemId) {
+		this.itemId = itemId;
+	}
+
+
+
 	@Override
 	public String toString() {
 		return "Order [id=" + id + ", firstName=" + firstName + ", surname=" + surname + ", productName=" + productName
@@ -84,7 +94,7 @@ public class Order {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(customerId, firstName, id, productName, surname);
+		return Objects.hash(customerId, firstName, id, itemId, productName, surname);
 	}
 
 	@Override
@@ -97,11 +107,7 @@ public class Order {
 			return false;
 		Order other = (Order) obj;
 		return Objects.equals(customerId, other.customerId) && Objects.equals(firstName, other.firstName)
-				&& Objects.equals(id, other.id) && Objects.equals(productName, other.productName)
-				&& Objects.equals(surname, other.surname);
+				&& Objects.equals(id, other.id) && Objects.equals(itemId, other.itemId)
+				&& Objects.equals(productName, other.productName) && Objects.equals(surname, other.surname);
 	}
-	
-		
-	
-	
 }
