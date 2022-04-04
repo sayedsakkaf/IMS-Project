@@ -22,14 +22,22 @@ public class OrderDAO implements Dao<Order> {
 	@Override
 	public Order modelFromResultSet(ResultSet resultSet) throws SQLException {
 		Long id = resultSet.getLong("id");
+		String firstName = resultSet.getString("first_name");
+		String surname = resultSet.getString("surname");
+		String productName = resultSet.getString("product_name");
+		return new Order(id, firstName, surname, productName);
+	}
+
+	
+	public Order modelOrderItemsFromResultSet(ResultSet resultSet) throws SQLException {
+		Long id = resultSet.getLong("id");
 		Long customerId = resultSet.getLong("customer_id");
 		String firstName = resultSet.getString("first_name");
 		String surname = resultSet.getString("surname");
 		String productName = resultSet.getString("product_name");
-		return new Order(id, customerId, firstName, surname, productName);
+		return new Order(customerId, firstName, surname, productName);
 	}
 
-	
 	public Order modelOrderFromResultSet(ResultSet resultSet) throws SQLException {
 		Long id = resultSet.getLong("id");
 		Long customerId = resultSet.getLong("customer_id");
@@ -63,13 +71,29 @@ public class OrderDAO implements Dao<Order> {
 				Statement statement = connection.createStatement();
 				ResultSet resultSet = statement.executeQuery("SELECT * FROM orders");) {
 			resultSet.next();
-			return modelOrderFromResultSet(resultSet);
+			return modelFromResultSet(resultSet);
 		} catch (Exception e) {
 			LOGGER.debug(e);
 			LOGGER.error(e.getMessage());
 		}
 		return null;
 	}
+	
+	
+	public Order readOrder(Long id) {
+			try (Connection connection = DBUtils.getInstance().getConnection();
+					Statement statement = connection.createStatement();
+					ResultSet resultSet = statement.executeQuery("SELECT * FROM orders WHERE orders is" +id);) {
+				resultSet.next();
+				return modelOrderFromResultSet(resultSet);
+			} catch (Exception e) {
+				LOGGER.debug(e);
+				LOGGER.error(e.getMessage());
+			}
+			return null;
+		
+	}
+	
 
 	@Override
 	public Order read(Long id) {
@@ -91,8 +115,7 @@ public class OrderDAO implements Dao<Order> {
 	@Override
 	public Order create(Order order) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
-				PreparedStatement statement = connection
-						.prepareStatement("INSERT INTO orders(customer_id) VALUES (?)");) {
+				PreparedStatement statement = connection.prepareStatement("INSERT INTO orders(customer_id) VALUES (?)");) {
 			statement.setLong(1, order.getCustomerId());
 			statement.executeUpdate();
 			return readLatest();
@@ -100,10 +123,28 @@ public class OrderDAO implements Dao<Order> {
 			LOGGER.debug(e);
 			LOGGER.error(e.getMessage());
 		}
-		return null;
+		return order;
+	}
+	
+
+	public Order createOrderItem(Order order, Long itemId) {
+		try (Connection connection = DBUtils.getInstance().getConnection();
+				PreparedStatement statement = connection
+						.prepareStatement("INSERT INTO orders_items(order_id, item_id) VALUES (?, ?)");) {
+			statement.setLong(1, order.getId());
+			statement.setLong(2, itemId);
+			statement.executeUpdate();
+			return readLatest();
+		} catch (Exception e) {
+			LOGGER.debug(e);
+			LOGGER.error(e.getMessage());
+		}
+		return order;
 	}
 	
 	
+	
+
 	@Override
 	public Order update(Order t) {
 		// TODO Auto-generated method stub
@@ -121,9 +162,12 @@ public class OrderDAO implements Dao<Order> {
 			LOGGER.debug(e);
 			LOGGER.error(e.getMessage());
 		}
-		return 0;
+		return 1;
 	
 	}
+
+
+
 }
 
 
