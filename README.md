@@ -21,7 +21,20 @@ What things you need to install the software and how to install them
 
 ### Installing
 
-To install the development environment to your system you will first need to fork the repository over to your personal GitHub account. After forking, you will need to use your IDE to clone the repo down to your system. Once the repo has been cloned, you can open the file in your IDE and run Runner.java to begin the application. 
+To install the development environment to your system you will first need to fork the repository over to your personal GitHub account. After forking, you will need to use your IDE to clone the repo down to your system. Once the repo has been cloned, you can open the file in your IDE and run Runner.java to begin the application. You will need to create an `ims` file on your local host MySQL to hold the data for the java file. 
+
+
+### MySQL 'ims' File:
+
+Insert these entries in to your local instance of 'ims' and the Java programme will connect to it and insert data from the console.
+
+
+<img width="817" alt="Screenshot 2022-04-04 at 16 47 53" src="https://user-images.githubusercontent.com/100779457/161582286-86338e17-f146-432c-b042-f790e859432a.png">
+
+
+<img width="655" alt="Screenshot 2022-04-04 at 16 47 38" src="https://user-images.githubusercontent.com/100779457/161582377-23c8f046-7caf-41d3-aa51-1653a258c72f.png">
+
+
 
 ```
 Upon running the Runner.java file, you will be able to select from four options:
@@ -46,21 +59,25 @@ Below is an example of information extracted out ITEM > READ :
 
 ## Running the tests
 
-Explain how to run the automated tests for this system. Break down into which tests and what they do
 
 ### Unit Tests 
 
 The purpose of unit testing is to ensure that each unit of software code works as it is expected to. To unit test this project, you will need to - 
+
+<img width="1085" alt="Screenshot 2022-04-04 at 16 42 49" src="https://user-images.githubusercontent.com/100779457/161581586-8213c5bb-e3ff-4ad0-ad83-47a5b47670ac.png">
+
 ```
-Give an example
+
+
 ```
 
 ### Integration Tests 
-Explain what these tests test, why and how to run them
+These test run integration tests 
 
-```
-Give an example
-```
+
+<img width="568" alt="Screenshot 2022-04-04 at 16 41 55" src="https://user-images.githubusercontent.com/100779457/161581458-2182bd3d-ae10-456c-86a0-a113570a2ded.png">
+
+
 
 
 ## Deployment
